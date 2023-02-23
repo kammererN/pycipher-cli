@@ -1,18 +1,6 @@
 
 import par  # Import cli parser
 
-# Functions which encrypt a file according to a given algorithm. 
-def atbash(input): # Atbash Cipher
-    return 0
-
-
-def rot13(input): # Rot 13 Cipher
-    return 0
-
-
-def caesar(input): # Caesar Cipher
-    return 0
-
     
 # Function to encrypt a file.
 def pyt(): 
