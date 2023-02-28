@@ -52,5 +52,5 @@ setup(
         'Topic :: Text Processing :: General',
     ],
 
-    long_description=open('README').read(),
+    long_description=open('README.txt').read(),
     )
