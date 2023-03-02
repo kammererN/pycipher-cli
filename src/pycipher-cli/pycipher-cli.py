@@ -2,7 +2,7 @@
 """
 GNU General Public License v3+
 
-PyCipher-CLI: tool for encryption of text (.txt) files.
+PyCipher-CLI: encryption tool for text (.txt) files.
 Copyright (C) 2023 Nicholas Kammerer (nkammerer@albany.edu)
 
 This program is free software: you can redistribute it and/or modify

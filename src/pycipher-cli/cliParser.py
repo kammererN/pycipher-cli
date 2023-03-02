@@ -2,7 +2,7 @@
 """
 GNU General Public License v3+
 
-PyCipher-CLI: tool for encryption of text (.txt) files.
+PyCipher-CLI: encryption tool for text (.txt) files.
 Copyright (C) 2023 Nicholas Kammerer (nkammerer@albany.edu)
 
 This program is free software: you can redistribute it and/or modify
@@ -30,15 +30,15 @@ class Parser:
         # Instantiate argparse.
         parser = argparse.ArgumentParser(
             prog="pycipher-cli",
-            usage="python3 pycipher-cli.py [-i] PATH/TO/FILE [-c] CIPHER [-k] KEY",
+            usage="python pycipher-cli.py [-i] PATH/TO/FILE [-c] CIPHER [-k] KEY",
             description='Encrypt a file using a cipher.')
 
         # Add arguments to the parser.
-        parser.add_argument('-i', '--input', help='path/to/input/file', required=True)
+        parser.add_argument('-i', '--input', help='path/to/input/file', default='../tests/input.txt')
+        parser.add_argument('-o', '--output', help='optional/path/to/output/file', required=False,
+                            default='../tests/output.txt')
         parser.add_argument('-c', '--cipher', choices=['atbash', 'caesar'], help='the cipher option selected',
                             required=True)
-        parser.add_argument('-o', '--output', help='optional/path/to/output/file', required=False,
-                            default='../output.txt')
         parser.add_argument('-k', '--key', help='key for the cipher', required=False, default=None)
 
         # Parse the arguments.

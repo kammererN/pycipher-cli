@@ -2,7 +2,7 @@
 """
 GNU General Public License v3+
 
-PyCipher-CLI: tool for encryption of text (.txt) files.
+PyCipher-CLI: encryption tool for text (.txt) files.
 Copyright (C) 2023 Nicholas Kammerer (nkammerer@albany.edu)
 
 This program is free software: you can redistribute it and/or modify
@@ -43,7 +43,7 @@ class Encrypter:
     def caesar(self, key):
         with open(self.input_file, 'r') as file:
             plaintext = file.read()
-            ciphertext = pycipher.Caesar(key).encipher(plaintext, True)
+            ciphertext = pycipher.Caesar(int(key)).encipher(plaintext, True)
             with open(self.output_file, 'w') as output:
                 output.write(ciphertext)
 
