@@ -22,19 +22,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.h
 
 # Import modules
 import cliParser
-import pycipher
-
-
-def pycipher_cli():
-
-    # Parse CLI arguments
-    args = cliParser.Parser().args
-
-    # Call encrypter
-    if not args.decrypt:
-        pass
-
+import encrypter
 
 # Execute file
 if __name__ == "__main__":
-    pycipher_cli()
+
+    # Instantiate Parser object.
+    parser = cliParser.Parser()
+
+    # Check the cipher selection, and execute the appropriate encryption algorithm.
+    match parser.get_cipher().lower():
+        case 'atbash':
+            atbash = encrypter.Encrypter(parser.get_input(), parser.get_output())
+            atbash.atbash()
+            print(f'Encrypted file written to {parser.get_output()}.')
+        case 'caesar':
+            caesar = encrypter.Encrypter(parser.get_input(), parser.get_output())
+            caesar.caesar(parser.get_key())
+            print(f'Encrypted file written to {parser.get_output()}.')
+            exit(0)
+        case _:
+            print("Invalid cipher option.")
+            exit(1)
