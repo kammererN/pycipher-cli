@@ -1,8 +1,8 @@
 
-'''
+"""
 GNU General Public License v3+
 
-PyCipher-CLI: tool that encrypts/decrypts a text (.txt) file.  
+PyCipher-CLI: tool for encryption of text (.txt) files.
 Copyright (C) 2023 Nicholas Kammerer (nkammerer@albany.edu)
 
 This program is free software: you can redistribute it and/or modify
@@ -18,16 +18,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.html>.
 
-'''
+"""
 
-import encr  # Import encrypter
-import decr  # Import decrypter
-import par  # Import cli parser
+# Import modules
+import cliParser
+import pycipher
 
 
-# Execute program if ran from CLI
+def pycipher_cli():
+
+    # Parse CLI arguments
+    args = cliParser.Parser().args
+
+    # Call encrypter
+    if not args.decrypt:
+        pass
+
+
+# Execute file
 if __name__ == "__main__":
-    if par.ser().decrypt:
-        decr.pyt()
-    else:
-        encr.pyt()
+    pycipher_cli()
