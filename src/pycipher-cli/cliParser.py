@@ -30,16 +30,20 @@ class Parser:
         # Instantiate argparse.
         parser = argparse.ArgumentParser(
             prog="pycipher-cli",
-            usage="python pycipher-cli.py [-i] PATH/TO/FILE [-c] CIPHER [-k] KEY",
+            usage="python pyc.py [-i] PATH/TO/FILE [-c] CIPHER [-k] KEY",
             description='Encrypt a file using a cipher.')
 
         # Add arguments to the parser.
-        parser.add_argument('-i', '--input', help='path/to/input/file', default='../tests/input.txt')
+        parser.add_argument('-i', '--input', help='path/to/input/file', default='input.txt')
         parser.add_argument('-o', '--output', help='optional/path/to/output/file', required=False,
-                            default='../tests/output.txt')
-        parser.add_argument('-c', '--cipher', choices=['atbash', 'caesar'], help='the cipher option selected',
-                            required=True)
+                            default='output.txt')
+        parser.add_argument('-c', '--cipher', choices=['adfgx', 'adfgvx', 'affine', 'autokey', 'atbash', 'beaufort',
+                                                       'bifid', 'caesar', 'columnar_trans', 'enigma_m3', 'four_square',
+                                                       'gronsfeld', 'm209', 'playfair', 'poly_square', 'porta',
+                                                       'rail_fence', 'rot13', 'simple_sub', 'vigenere'],
+                            help='the cipher option selected', required=True)
         parser.add_argument('-k', '--key', help='key for the cipher', required=False, default=None)
+        parser.add_argument('-w', '--word', help='keyword for the cipher', required=False, default=None)
 
         # Parse the arguments.
         self.args = parser.parse_args()
@@ -60,7 +64,11 @@ class Parser:
     def get_key(self):
         return self.args.key
 
+    # Accessor for the keyword argument.
+    def get_keyword(self):
+        return self.args.word
+
 
 # Point user to proper script in case of execution.
 if __name__ == "__main__":
-    print("Please run 'pycipher-cli.py' instead.")
+    print("Please run 'pyc-cli.py' instead.")
