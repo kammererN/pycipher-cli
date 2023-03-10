@@ -2,5 +2,5 @@
 \.idea
 \dist
 \wips.py
-\src\pycipher-cli\input.txt
 \src\pycipher-cli\output.txt
+\src\pycipher-cli\input.txt
