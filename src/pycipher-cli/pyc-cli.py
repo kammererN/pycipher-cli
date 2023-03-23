@@ -26,50 +26,89 @@ import encrypter
 import keyCheck
 
 # Execute file
-if __name__ == "__main__":
+if __name__ == "__main__":  # TODO: WRITE DOCS!!!
 
     # Instantiate Parser, encrypter and keyCheck objects.
     parser = cliParser.Parser()
     enc = encrypter.Encrypter(parser.get_input(), parser.get_output())
-    check = keyCheck.KeyCheck(parser.get_key(), parser.get_keyword())
+    check = keyCheck.KeyCheck(parser.get_key(), parser.get_key2(), parser.get_keyword(), parser.get_period())
 
     # Check the cipher selection, and execute the appropriate encryption algorithm.
     match parser.get_cipher().lower():
-        case 'adfgx':
-            pass
-        case 'adfgvx':
-            pass
-        case 'affine':
-            pass
-        case 'autokey':
-            pass
+        case 'adfgx':  # TODO: Test functionality.
+            if not check.is_alphanum_str_of_26():
+                print("Invalid key. Key must be a 26 character keysquare.")
+                exit(1)
+            enc.adfgx(parser.get_key(), parser.get_keyword())
+        case 'adfgvx':  # TODO: Test functionality.
+            if not check.is_alphanum_str_of_36():
+                print("Invalid key. Key must be a 36 character keysquare.")
+                exit(1)
+            enc.adfgvx(parser.get_key(), parser.get_keyword())
+        case 'affine':  # TODO: Test functionality.
+            if not check.valid_affine_multiplicative():
+                print("Invalid key1. Key1 must be an integer in set [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25].")
+                exit(1)
+            if not check.valid_affine_additive():
+                print("Invalid key2. Key2 must be an integer in range [0, 25].")
+                exit(1)
+            enc.affine(parser.get_key(), parser.get_key2())
+        case 'autokey':  # TODO: Test functionality.
+            if not check.is_alpha():
+                print("Invalid key. Key must be alphabetical.")
+                exit(1)
+            enc.autokey(parser.get_key())
         case 'atbash':
             enc.atbash()
-        case 'beaufort':
-            pass
-        case 'bifid':
-            pass
+        case 'beaufort':  # TODO: Test functionality.
+            if not check.is_alpha():
+                print("Invalid key. Key must be alphabetical.")
+                exit(1)
+            enc.beaufort(parser.get_key())
+        case 'bifid':  # TODO: Test functionality.
+            if not check.is_25_keysquare():
+                print("Invalid key. Key must be a 25 character keysquare.")
+                exit(1)
+            if not check.is_int():
+                print("Invalid period. Period must be an integer.")
+                exit(1)
+            enc.bifid(parser.get_key(), parser.get_period())
         case 'caesar':
             if not check.is_between_0_25():
                 print("Invalid key. Key must be an integer between 0 and 25.")
                 exit(1)
             enc.caesar(parser.get_key())
-        case 'columnar_trans':
+        case 'columnar_trans':  # TODO: Test functionality.
+            if not check.is_alpha():
+                print("Invalid key. Key must be alphabetical.")
+                exit(1)
+            enc.columnar_transposition(parser.get_key())
+        case 'enigma_m3':  # TODO: Implement, maybe?
             pass
-        case 'enigma_m3':
+        case 'four_square':   # TODO: Test functionality.
+            if not check.is_25_keysquare():
+                print("Invalid key. Key must be a 25 character keysquare string.")
+                exit(1)
+            enc.four_square(parser.get_key(), parser.get_key2())
+        case 'gronsfeld':  # TODO: Test functionality.
+            if not check.is_numsequence():
+                print("Invalid key. Key must be a sequence of integers.")
+                exit(1)
+            enc.gronsfeld(parser.get_key())
+        case 'm209':  # TODO: Implement, maybe?
             pass
-        case 'four_square':
+        case 'playfair':  # TODO: Test functionality.
+            if not check.is_25_keysquare():
+                print("Invalid key. Key must be a 25 character keysquare string.")
+                exit(1)
+            enc.playfair(parser.get_key())
+        case 'poly_square':  # TODO: Implement, maybe?
             pass
-        case 'gronsfeld':
-            pass
-        case 'm209':
-            pass
-        case 'playfair':
-            pass
-        case 'poly_square':
-            pass
-        case 'porta':
-            pass
+        case 'porta':  # TODO: Test functionality.
+            if not check.is_alpha():
+                print("Invalid key. Key must be alphabetical.")
+                exit(1)
+            enc.porta(parser.get_key())
         case 'rail_fence':
             if not check.is_positive_int():
                 print("Invalid key. Key must be a positive integer.")
@@ -82,7 +121,7 @@ if __name__ == "__main__":
                 print("Invalid key. Key must be a permutation of the alphabet.")
                 exit(1)
             enc.simple_substitution(parser.get_key())
-        case 'vigenere':
+        case 'vigenere':  # TODO: Test functionality.
             if not check.is_alpha():
                 print("Invalid key. Key must be alphabetical.")
                 exit(1)

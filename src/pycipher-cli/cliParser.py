@@ -23,7 +23,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.h
 import argparse
 
 
-# Parses
+# Parses command-line arguments.
+# TODO: Add functionality for decrypting files.
 class Parser:
 
     def __init__(self):
@@ -34,6 +35,7 @@ class Parser:
             description='Encrypt a file using a cipher.')
 
         # Add arguments to the parser.
+        # TODO: Add functionality for second key (Affine, Foursquare).
         parser.add_argument('-i', '--input', help='path/to/input/file', default='input.txt')
         parser.add_argument('-o', '--output', help='optional/path/to/output/file', required=False,
                             default='output.txt')
@@ -43,8 +45,9 @@ class Parser:
                                                        'rail_fence', 'rot13', 'simple_sub', 'vigenere'],
                             help='the cipher option selected', required=True)
         parser.add_argument('-k', '--key', help='key for the cipher', required=False, default=None)
+        parser.add_argument('-k2', '--key2', help='optional second key for the cipher', required=False, default=None)
         parser.add_argument('-w', '--word', help='keyword for the cipher', required=False, default=None)
-
+        parser.add_argument('-p', '--period', help='period for the cipher', required=False, default=None)
         # Parse the arguments.
         self.args = parser.parse_args()
 
@@ -64,9 +67,17 @@ class Parser:
     def get_key(self):
         return self.args.key
 
-    # Accessor for the keyword argument.
+    # Accessor for the optional second key argument.
+    def get_key2(self):
+        return self.args.key2
+
+    # Accessor for the optional keyword argument.
     def get_keyword(self):
         return self.args.word
+
+    # Accessor for the optional period argument.
+    def get_period(self):
+        return self.args.period
 
 
 # Point user to proper script in case of execution.

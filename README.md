@@ -33,23 +33,23 @@ command into your preferred terminal (Windows example provided):
     -h, --help                       Receive more info on this script. 
   
 ## Supported Ciphers:
-- ADFGX cipher (incomplete)
-- ADFGVX cipher (incomplete)
-- Affine cipher (incomplete)
-- Autokey cipher (incomplete)
+- ADFGX cipher
+- ADFGVX cipher 
+- Affine cipher
+- Autokey cipher
 - Atbash cipher
-- Beaufort cipher (incomplete)
-- Bifid cipher (incomplete)
+- Beaufort cipher
+- Bifid cipher
 - Caesar cipher
-- Columnar transposition cipher (incomplete)
+- Columnar transposition cipher
 - Enigma M3 cipher (incomplete)
-- Four-square cipher (incomplete)
-- Gronsfeld cipher (incomplete)
+- Four-square cipher
+- Gronsfeld cipher
 - M-209 cipher (incomplete)
-- Playfair cipher (incomplete)
+- Playfair cipher
 - Polybius Square cipher (incomplete)
-- Porta cipher (incomplete)
-- Railfence cipher
+- Porta cipher
+- Rail-fence cipher
 - Rot13 cipher
 - Simple Substitution cipher
 - Vigenere cipher

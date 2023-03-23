@@ -42,86 +42,83 @@ class Encrypter:
 
     # Encrypts a file using the ADFGX cipher.
     def adfgx(self, key, keyword):
-        ciphertext = pycipher.ADFGX(key, keyword).encipher(self.plaintext)
-        self.write_output(ciphertext)
+        self.write_output(pycipher.ADFGX(key, keyword).encipher(self.plaintext))
 
     # Encrypts a file using the ADFGX cipher.
-    def adfgvx(self):
-        pass
+    def adfgvx(self, key, keyword):
+        self.write_output(pycipher.ADFGVX(key, keyword).encipher(self.plaintext))
+
+    # Encrypts a file using the Affine cipher.
+    def affine(self, key1, key2):
+        self.write_output(pycipher.Affine(int(key1), int(key2)).encipher(self.plaintext, True))
 
     # Encrypts a file using the Autokey cipher.
-    def autokey(self):
-        pass
+    def autokey(self, key):
+        self.write_output(pycipher.Autokey(key).encipher(self.plaintext))
 
     # Encrypts a file using the Atbash cipher.
     def atbash(self):
-        ciphertext = pycipher.Atbash().encipher(self.plaintext, True)
-        self.write_output(ciphertext)
+        self.write_output(pycipher.Atbash().encipher(self.plaintext, True))
 
     # Encrypts a file using the Beaufort cipher.
-    def beaufort(self):
-        pass
+    def beaufort(self, key):
+        self.write_output(pycipher.Beaufort(key).encipher(self.plaintext))
 
     # Encrypts a file using the Bifid cipher.
-    def bifid(self):
-        pass
+    def bifid(self, key, period):
+        self.write_output(pycipher.Bifid(key, period).encipher(self.plaintext))
 
     # Encrypts a file using the Caesar cipher.
     def caesar(self, key):
-        ciphertext = pycipher.Caesar(int(key)).encipher(self.plaintext, True)
-        self.write_output(ciphertext)
+        self.write_output(pycipher.Caesar(int(key)).encipher(self.plaintext, True))
 
     # Encrypts a file using the Columnar Transposition cipher.
-    def columnar_transposition(self):
-        pass
+    def columnar_transposition(self, key):
+        self.write_output(pycipher.ColTrans(key).encipher(self.plaintext))
 
     # Encrypts a file using the Enigma M3 cipher.
-    def enigma_m3(self):
+    def enigma_m3(self):  # TODO: Implement, maybe?
         pass
 
     # Encrypts a file using the Four-Square cipher.
-    def four_square(self):
-        pass
+    def four_square(self, key1, key2):
+        self.write_output(pycipher.Foursquare(key1, key2).encipher(self.plaintext))
 
     # Encrypts a file using the Gronsfeld cipher.
-    def gronsfeld(self):
-        pass
+    def gronsfeld(self, key):
+        self.write_output(pycipher.Gronsfeld(key).encipher(self.plaintext))
 
     # Encrypts a file using the M-209 cipher.
-    def m209(self):
+    def m209(self):  # TODO: Implement, maybe?
         pass
 
     # Encrypts a file using the Playfair cipher.
-    def playfair(self):
-        pass
+    def playfair(self, key):
+        self.write_output(pycipher.Playfair(key).encipher(self.plaintext))
 
     # Encrypts a file using the Polybius Square cipher.
-    def polybius_square(self):
+    def polybius_square(self):  # TODO: Implement, maybe?.
         pass
 
     # Encrypts a file using the Porta cipher.
-    def porta(self):
-        pass
+    def porta(self, key):
+        self.write_output(pycipher.Porta(key).encipher(self.plaintext))
 
     # Encrypts a file using the Rail-fence cipher.
     def rail_fence(self, key):
-        ciphertext = pycipher.Railfence(int(key)).encipher(self.plaintext, True)
-        self.write_output(ciphertext)
+        self.write_output(pycipher.Railfence(int(key)).encipher(self.plaintext, True))
 
     # Encrypts a file using the Rot13 cipher.
     def rot13(self):
-        ciphertext = pycipher.Rot13().encipher(self.plaintext, True)
-        self.write_output(ciphertext)
+        self.write_output(pycipher.Rot13().encipher(self.plaintext, True))
 
     # Encrypts a file using the Simple Substitution cipher.
     def simple_substitution(self, key):
-        ciphertext = pycipher.SimpleSubstitution(key).encipher(self.plaintext, True)
-        self.write_output(ciphertext)
+        self.write_output(pycipher.SimpleSubstitution(key).encipher(self.plaintext, True))
 
     # Encrypts a file using the Vigenere cipher.
     def vigenere(self, key):
-        ciphertext = pycipher.Vigenere(key).encipher(self.plaintext)
-        self.write_output(ciphertext)
+        self.write_output(pycipher.Vigenere(key).encipher(self.plaintext))
 
 
 # Point user to proper script in case of execution.

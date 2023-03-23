@@ -22,9 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.h
 
 # Defines various functions for checking the validity of key inputs.
 class KeyCheck:
-    def __init__(self, key, keyword):
+    def __init__(self, key, key2, keyword, period):
         self.key = key
+        self.key2 = key2
         self.keyword = keyword
+        self.period = period
 
     # Check that the key is a 25 char keysquare.
     def is_25_keysquare(self):
@@ -49,7 +51,14 @@ class KeyCheck:
 
     # Check that a key is a 26-character alphanumeric string
     def is_alphanum_str_of_26(self):
-        if len(self.key) == 26:
+        if len(self.key) == 26 and self.key.isalpha():
+            return True
+        else:
+            return False
+
+    # Check that a key is a 26-character string of alphabetical characters.
+    def is_alphanum_str_of_36(self):
+        if len(self.key) == 36 and self.key.isalpha():
             return True
         else:
             return False
@@ -60,3 +69,34 @@ class KeyCheck:
             return True
         else:
             return False
+
+    # Check that a key is a sequence of numbers 0-9.
+    def is_numsequence(self):
+        if self.key.isdigit():
+            return True
+        else:
+            return False
+
+    # Check that a period is an integer.
+    def is_int(self):
+        if self.period.isdigit():
+            return True
+        else:
+            return False
+
+    # Check that a key is a valid affine multiplicative.
+    def valid_affine_multiplicative(self):
+        valid_affine_multis = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]
+        if self.key in valid_affine_multis:
+            return True
+        else:
+            return False
+
+    # Check that a key is a valid affine additive.
+    def valid_affine_additive(self):  # TODO: Add functionality for key2.
+        if self.key in range(0, 26):
+            return True
+        else:
+            return False
+
+
