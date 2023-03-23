@@ -46,3 +46,17 @@ class KeyCheck:
             return True
         else:
             return False
+
+    # Check that a key is a 26-character alphanumeric string
+    def is_alphanum_str_of_26(self):
+        if len(self.key) == 26:
+            return True
+        else:
+            return False
+
+    # Check that a key is only alphabetical characters.
+    def is_alpha(self):
+        if self.key.isalpha():
+            return True
+        else:
+            return False

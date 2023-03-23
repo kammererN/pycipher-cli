@@ -1,5 +1,7 @@
 
 # PyCipher-CLI:
+[![Documentation Status](https://readthedocs.org/projects/pycipher-cli/badge/?version=latest)](https://pycipher-cli.readthedocs.io/en/latest/?badge=latest)
+
 PyCipher-CLI is a command-line encryption tool for text (.txt) files.
 
 Source on [GitHub](https://github.com/nxrada/pycipher-cli) | 
@@ -49,7 +51,7 @@ command into your preferred terminal (Windows example provided):
 - Porta cipher (incomplete)
 - Railfence cipher
 - Rot13 cipher
-- Simple Substitution cipher (incomplete)
+- Simple Substitution cipher
 - Vigenere cipher
 
 ## Licensing:

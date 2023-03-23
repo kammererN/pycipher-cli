@@ -31,13 +31,19 @@ class Encrypter:
         self.input_file = input_file
         self.output_file = output_file
 
+        # Write the text that will be modified to a variable.
+        with open(self.input_file, 'r') as file:
+            self.plaintext = file.read()
+
+    # Writes ciphertext to output file.
+    def write_output(self, ciphertext):
+        with open(self.output_file, 'w') as output:
+            output.write(ciphertext)
+
     # Encrypts a file using the ADFGX cipher.
     def adfgx(self, key, keyword):
-        with open(self.input_file, 'r') as file:
-            plaintext = file.read()
-            ciphertext = pycipher.ADFGX(key, keyword).encipher(plaintext)
-            with open(self.output_file, 'w') as output:
-                output.write(ciphertext)
+        ciphertext = pycipher.ADFGX(key, keyword).encipher(self.plaintext)
+        self.write_output(ciphertext)
 
     # Encrypts a file using the ADFGX cipher.
     def adfgvx(self):
@@ -49,27 +55,21 @@ class Encrypter:
 
     # Encrypts a file using the Atbash cipher.
     def atbash(self):
-        with open(self.input_file, 'r') as file:
-            plaintext = file.read()
-            ciphertext = pycipher.Atbash().encipher(plaintext, True)
-            with open(self.output_file, 'w') as output:
-                output.write(ciphertext)
+        ciphertext = pycipher.Atbash().encipher(self.plaintext, True)
+        self.write_output(ciphertext)
 
     # Encrypts a file using the Beaufort cipher.
     def beaufort(self):
         pass
-    # Encrypts a file using the Bifid cipher.
 
+    # Encrypts a file using the Bifid cipher.
     def bifid(self):
         pass
 
     # Encrypts a file using the Caesar cipher.
     def caesar(self, key):
-        with open(self.input_file, 'r') as file:
-            plaintext = file.read()
-            ciphertext = pycipher.Caesar(int(key)).encipher(plaintext, True)
-            with open(self.output_file, 'w') as output:
-                output.write(ciphertext)
+        ciphertext = pycipher.Caesar(int(key)).encipher(self.plaintext, True)
+        self.write_output(ciphertext)
 
     # Encrypts a file using the Columnar Transposition cipher.
     def columnar_transposition(self):
@@ -105,27 +105,23 @@ class Encrypter:
 
     # Encrypts a file using the Rail-fence cipher.
     def rail_fence(self, key):
-        with open(self.input_file, 'r') as file:
-            plaintext = file.read()
-            ciphertext = pycipher.Railfence(int(key)).encipher(plaintext, True)
-            with open(self.output_file, 'w') as output:
-                output.write(ciphertext)
+        ciphertext = pycipher.Railfence(int(key)).encipher(self.plaintext, True)
+        self.write_output(ciphertext)
 
     # Encrypts a file using the Rot13 cipher.
     def rot13(self):
-        with open(self.input_file, 'r') as file:
-            plaintext = file.read()
-            ciphertext = pycipher.Rot13().encipher(plaintext, True)
-            with open(self.output_file, 'w') as output:
-                output.write(ciphertext)
+        ciphertext = pycipher.Rot13().encipher(self.plaintext, True)
+        self.write_output(ciphertext)
 
     # Encrypts a file using the Simple Substitution cipher.
-    def simple_substitution(self):
-        pass
+    def simple_substitution(self, key):
+        ciphertext = pycipher.SimpleSubstitution(key).encipher(self.plaintext, True)
+        self.write_output(ciphertext)
 
     # Encrypts a file using the Vigenere cipher.
-    def vigenere(self):
-        pass
+    def vigenere(self, key):
+        ciphertext = pycipher.Vigenere(key).encipher(self.plaintext)
+        self.write_output(ciphertext)
 
 
 # Point user to proper script in case of execution.

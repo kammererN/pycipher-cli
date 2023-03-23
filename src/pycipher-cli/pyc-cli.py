@@ -28,11 +28,9 @@ import keyCheck
 # Execute file
 if __name__ == "__main__":
 
-    # Instantiate Parser object.
+    # Instantiate Parser, encrypter and keyCheck objects.
     parser = cliParser.Parser()
-    # Instantiate Encrypter object.
     enc = encrypter.Encrypter(parser.get_input(), parser.get_output())
-    # Instantiate KeyCheck object.
     check = keyCheck.KeyCheck(parser.get_key(), parser.get_keyword())
 
     # Check the cipher selection, and execute the appropriate encryption algorithm.
@@ -80,12 +78,19 @@ if __name__ == "__main__":
         case 'rot13':
             enc.rot13()
         case 'simple_sub':
-            pass
+            if not check.is_alphanum_str_of_26():
+                print("Invalid key. Key must be a permutation of the alphabet.")
+                exit(1)
+            enc.simple_substitution(parser.get_key())
         case 'vigenere':
-            pass
+            if not check.is_alpha():
+                print("Invalid key. Key must be alphabetical.")
+                exit(1)
+            enc.vigenere(parser.get_key())
         case _:
             print("Invalid cipher option.")
             exit(1)
+
     # Print success message.
     print(f"Encrypted file written to '{parser.get_output()}', using the {parser.get_cipher().title()} cipher.")
     exit(0)
