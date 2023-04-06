@@ -1,5 +1,5 @@
 
-# PyCipher-CLI:
+<h1 style="text-align: center;"> PyCipher-CLI: </h1>
 [![Documentation Status](https://readthedocs.org/projects/pycipher-cli/badge/?version=latest)](https://pycipher-cli.readthedocs.io/en/latest/?badge=latest)
 
 PyCipher-CLI is a command-line encryption tool for text (.txt) files.
