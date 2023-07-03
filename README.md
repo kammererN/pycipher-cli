@@ -59,7 +59,7 @@ python3 pyccli.py -i 'msg.txt' -o 'secret.txt' -c 'caesar' -k '5'
 ### Acknowledgments:
 This project builds heavily on information compiled by James Lyons at http://practicalcryptography.com, as well as his [pycipher](https://github.com/jameslyons/pycipher) library.
 
-To learn more about cryptography and its history, check out [Practical Cryptography](http://practicalcryptography.com). 
+To learn more about cryptography and its history, check out his site [Practical Cryptography](http://practicalcryptography.com). 
 
 ### Licensing:
 Copyright &copy; 2023 nxrada
