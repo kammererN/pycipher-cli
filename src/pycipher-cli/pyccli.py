@@ -36,10 +36,13 @@ if __name__ == "__main__":  # TODO: WRITE DOCS!!!
     # Check the cipher selection, and execute the appropriate encryption algorithm.
     match parser.get_cipher().lower():
         case 'adfgx':  # TODO: Test functionality.
-            if not check.is_alphanum_str_of_26():
-                print("Invalid key. Key must be a 26 character keysquare.")
-                exit(1)
-            enc.adfgx(parser.get_key(), parser.get_keyword())
+            if check is not None:
+                if not check.is_25_keysquare():
+                    print("Invalid key. Key must be a 25 character keysquare.")
+                    exit(1)
+                enc.adfgx(parser.get_key(), parser.get_keyword())
+            else:
+                print("Key is required for ADFGX cipher. Key must be a 26 character keysquare.")
         case 'adfgvx':  # TODO: Test functionality.
             if not check.is_alphanum_str_of_36():
                 print("Invalid key. Key must be a 36 character keysquare.")
@@ -83,7 +86,7 @@ if __name__ == "__main__":  # TODO: WRITE DOCS!!!
                 print("Invalid key. Key must be alphabetical.")
                 exit(1)
             enc.columnar_transposition(parser.get_key())
-        case 'enigma_m3':  # TODO: Implement, maybe?
+        case 'enigma_m3':  # Far too complex a cipher to fit in the scope of this project.
             pass
         case 'four_square':   # TODO: Test functionality.
             if not check.is_25_keysquare():
@@ -95,7 +98,7 @@ if __name__ == "__main__":  # TODO: WRITE DOCS!!!
                 print("Invalid key. Key must be a sequence of integers.")
                 exit(1)
             enc.gronsfeld(parser.get_key())
-        case 'm209':  # TODO: Implement, maybe?
+        case 'm209':  # Like Enigma, this cipher exists outside the scope of this project.
             pass
         case 'playfair':  # TODO: Test functionality.
             if not check.is_25_keysquare():

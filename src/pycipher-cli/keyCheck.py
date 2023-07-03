@@ -23,17 +23,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.h
 # Defines various functions for checking the validity of key inputs.
 class KeyCheck:
     def __init__(self, key, key2, keyword, period):
-        self.key = key
+        if key:
+            self.key = key
+        else:
+            self.key
         self.key2 = key2
         self.keyword = keyword
         self.period = period
 
     # Check that the key is a 25 char keysquare.
     def is_25_keysquare(self):
-        if len(self.key) != 25:
-            return False
-        else:
-            return True
+        # If keysquare is in text file, read it to a string.
+        if self.key is not None:
+            if len(self.key) != 25:
+                return False
+            else:
+                return True
 
     # Check that the key is an integer between 0 and 25.
     def is_between_0_25(self):
@@ -51,10 +56,11 @@ class KeyCheck:
 
     # Check that a key is a 26-character alphanumeric string
     def is_alphanum_str_of_26(self):
-        if len(self.key) == 26 and self.key.isalpha():
-            return True
-        else:
-            return False
+        if self.key is not None:
+            if len(self.key) == 26 and self.key.isalpha():
+                return True
+            else:
+                return False
 
     # Check that a key is a 26-character string of alphabetical characters.
     def is_alphanum_str_of_36(self):

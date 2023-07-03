@@ -76,10 +76,6 @@ class Encrypter:
     def columnar_transposition(self, key):
         self.write_output(pycipher.ColTrans(key).encipher(self.plaintext))
 
-    # Encrypts a file using the Enigma M3 cipher.
-    def enigma_m3(self):  # TODO: Implement, maybe?
-        pass
-
     # Encrypts a file using the Four-Square cipher.
     def four_square(self, key1, key2):
         self.write_output(pycipher.Foursquare(key1, key2).encipher(self.plaintext))
@@ -88,16 +84,12 @@ class Encrypter:
     def gronsfeld(self, key):
         self.write_output(pycipher.Gronsfeld(key).encipher(self.plaintext))
 
-    # Encrypts a file using the M-209 cipher.
-    def m209(self):  # TODO: Implement, maybe?
-        pass
-
     # Encrypts a file using the Playfair cipher.
     def playfair(self, key):
         self.write_output(pycipher.Playfair(key).encipher(self.plaintext))
 
     # Encrypts a file using the Polybius Square cipher.
-    def polybius_square(self):  # TODO: Implement, maybe?.
+    def polybius_square(self):  # TODO: Implement
         pass
 
     # Encrypts a file using the Porta cipher.
