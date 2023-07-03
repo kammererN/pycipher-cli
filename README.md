@@ -13,25 +13,29 @@ Source on [GitHub](https://github.com/nxrada/pycipher-cli). Docs hosted at [read
 To call this script, first make sure Python 3.10.x is installed on your machine and that your system's PATH variable is 
 configured accordingly. This project also depends on pycipher. For more information, check out <https://www.python.org/downloads/>. 
 
-Once Python is installed, you can use this script by entering the '../src/pycipher-cli/' directory and typing the following
-command into your preferred terminal (Windows example provided):
+Once Python is installed, you can use this script by entering the ```../src/pycipher-cli/``` directory and call it using ```python3 pyccli.py [args]```.
+
+***Example use-case: Caesar cipher.***
 ```
-    python3 pyccli.py -i 'input.txt' -o 'output.txt' -c 'caesar' -k '5'
+python3 pyccli.py -i 'msg.txt' -o 'secret.txt' -c 'caesar' -k '5'
 ```
 
 ### Arguments:
-    -i, --input 'path/to/input'      The path to the file to be encrypted. 
+```
+-i, --input 'path/to/input'      The path to the file to be encrypted. 
 
-    -o, --output 'path/to/output'    The path to the output file.
+-o, --output 'path/to/output'    The path to the output file.
     
-    -c, --cipher 'cipher'            The selected encryption algorithm.
+-c, --cipher 'cipher'            The selected encryption algorithm.
    
-    -k, --key                        Specify the cipher key. 
+-k, --key                        Specify the cipher key. 
 
-    -w, --word                       Specify the cipher keyword (if necessary).
+-w, --word                       Specify the cipher keyword (if necessary).
     
-    -h, --help                       Receive more info on this script. 
-  
+-h, --help                       Receive more info on this script. 
+```
+
+
 ## Supported Ciphers:
 * [ADFGX](http://practicalcryptography.com/ciphers/adfgx-cipher/)
 * [ADFGVX](http://practicalcryptography.com/ciphers/adfgvx-cipher/) 
