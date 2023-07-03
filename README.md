@@ -11,7 +11,7 @@ Source on [GitHub](https://github.com/nxrada/pycipher-cli). Docs hosted at [read
 
 ## Usage:
 To call this script, first make sure Python 3.10.x is installed on your machine and that your system's PATH variable is 
-configured accordingly. This project also depends on pycipher. For more information, check out <https://www.python.org/downloads/>. 
+configured accordingly. This project also depends on pycipher ([install instructions](http://practicalcryptography.com/miscellaneous/pycipher/installing-pycipher/)). For more information, check out <https://www.python.org/downloads/>. 
 
 Once Python is installed, you can use this script by entering the ```../src/pycipher-cli/``` directory and call it using ```python3 pyccli.py [args]```.
 
