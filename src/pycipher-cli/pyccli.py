@@ -29,43 +29,50 @@ if __name__ == "__main__":
     parser = clip.Parser()
     encoder = ncdr.Encoder(parser.args.input, parser.args.output, parser.args.cipher, parser.args.keys)
 
-    match encoder.cipher:
-        case 'adfgx':  # FIXME
-            encoder.adfgx()
-        case 'adfgvx':  # TODO: Implement 01
-            pass
-        case 'affine':  # TODO: Implement 02
-            pass
-        case 'autokey':  # TODO: Implement 03
-            pass
-        case 'atbash':  # TODO: Implement 04
-            pass
-        case 'beaufort':  # TODO: Implement 05
-            pass
-        case 'bifid':  # TODO: Implement 06
-            pass
-        case 'caesar':  # TODO: Implement 07
-            pass
-        case 'columnar':  # TODO: Implement 08
-            pass
-        case 'foursquare':  # TODO: Implement 09
-            pass
-        case 'gronsfeld':  # TODO: Implement 10
-            pass
-        case 'playfair':  # TODO: Implement 11
-            pass
-        case 'polybius':  # TODO: Implement 12
-            pass
-        case 'porta':  # TODO: Implement 13
-            pass
-        case 'railfence':  # TODO: Implement 14
-            pass
-        case 'rot13':  # TODO: Implement 15
-            pass
-        case 'simple-sub':  # TODO: Implement 16
-            pass
-        case 'vigenere':  # TODO: Implement 17
-            pass
+    # Encrypt
+    if not parser.args.decrypt:
+        match encoder.cipher:
+            case 'adfgx':
+                encoder.adfgx()
+            case 'adfgvx':  # TODO: Implement 01
+                pass
+            case 'affine':  # TODO: Implement 02
+                pass
+            case 'autokey':  # TODO: Implement 03
+                pass
+            case 'atbash':  # TODO: Implement 04
+                pass
+            case 'beaufort':  # TODO: Implement 05
+                pass
+            case 'bifid':  # TODO: Implement 06
+                pass
+            case 'caesar':  # TODO: Implement 07
+                pass
+            case 'columnar':  # TODO: Implement 08
+                pass
+            case 'foursquare':  # TODO: Implement 09
+                pass
+            case 'gronsfeld':  # TODO: Implement 10
+                pass
+            case 'playfair':  # TODO: Implement 11
+                pass
+            case 'polybius':  # TODO: Implement 12
+                pass
+            case 'porta':  # TODO: Implement 13
+                pass
+            case 'railfence':  # TODO: Implement 14
+                pass
+            case 'rot13':  # TODO: Implement 15
+                pass
+            case 'simple-sub':  # TODO: Implement 16
+                pass
+            case 'vigenere':  # TODO: Implement 17
+                pass
 
-    # Print success message.
-    print(f"Successfully encrypted {encoder.input} to {encoder.output} using {encoder.cipher} cipher.")
+        # Print success message.
+        print(f"Successfully encrypted {encoder.input} to {encoder.output} using {encoder.cipher} cipher.")
+    # Decrypt
+    else:
+        print("Yikes! Decryption is not yet supported. Feel free to contribute to this feature by forking the"
+              " repository at https://github.com/nxrada/pycipher-cli/.")
+

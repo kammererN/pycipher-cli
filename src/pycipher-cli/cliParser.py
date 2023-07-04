@@ -34,15 +34,17 @@ class Parser:
                         'visit http://practicalcryptography.com/ciphers/.')
 
         # Parser arguments.
-        parser.add_argument('-i', '--input', help='path/to/input/file', default='input.txt')
-        parser.add_argument('-o', '--output', help='optional/path/to/output/file', required=False,
+        parser.add_argument('--input', help='path/to/input/file', default='input.txt', required=True)
+        parser.add_argument('--output', help='/path/to/output/file. optional; default=output.txt', required=False,
                             default='output.txt')
-        parser.add_argument('-c', '--cipher', choices=['adfgx', 'adfgvx', 'affine', 'autokey', 'atbash', 'beaufort',
-                                                       'bifid', 'caesar', 'columnar_trans', 'four_square',
-                                                       'gronsfeld', 'playfair', 'poly_square', 'porta',
-                                                       'rail_fence', 'rot13', 'simple_sub', 'vigenere'],
-                            help='the cipher option selected', required=True)
-        parser.add_argument('-k', '--keys', nargs='*', help='key(s) for the cipher', required=False, default=None)
+        parser.add_argument('--cipher', choices=['adfgx', 'adfgvx', 'affine', 'autokey', 'atbash', 'beaufort',
+                                                       'bifid', 'caesar', 'columnar', 'four-square',
+                                                       'gronsfeld', 'playfair', 'polybius', 'porta',
+                                                       'rail-fence', 'rot13', 'simple-sub', 'vigenere'],
+                            help='the cipher option selected. Required', required=True)
+        parser.add_argument('--keys', nargs='*', help='key(s) for the cipher', required=False, default=None)
+        parser.add_argument('--decrypt', help='enables decryption mode', action='store_true',
+                            required=False, default=False)
 
         # Parse the arguments.
         self.args = parser.parse_args()

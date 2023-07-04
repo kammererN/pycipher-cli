@@ -6,7 +6,7 @@ PyCipher-CLI is a command-line encryption tool for plain-text (.txt) files.
 This project extends [Pycipher](https://github.com/jameslyons/pycipher), a Python library for encryption algorithms, by 
 providing a command-line interface for the library's encryption algorithms. 
 
-Source on [GitHub](https://github.com/nxrada/pycipher-cli). Docs hosted at [readthedocs.io.](https://pycipher-cli.readthedocs.io/en/master/) Here's a [demo video.]()
+Source on [GitHub](https://github.com/nxrada/pycipher-cli). Look a [demo video!]()
 
 ## Usage:
 To call this script, first make sure Python 3.10.x is installed on your machine and that your system's PATH variable is 
@@ -21,19 +21,23 @@ python3 pyccli.py -i 'msg.txt' -o 'secret.txt' -c 'caesar' -k '5'
 
 ### Arguments:
 ```
--i, --input 'path/to/input'      The path to the file to be encrypted. 
+-h, --help            Show this help message and exit
+--input INPUT         'Path/To/Input/File'
+--output OUTPUT       '/Path/To/Output/File' Optional; default=output.txt
+--cipher {adfgx, adfgvx, affine, autokey,
+          atbash, beaufort, bifid, caesar, 
+          columnar, four-square, gronsfeld, playfair, polybius,
+          porta, rail-fence, rot13, simple-sub, vigenere}
+                      the cipher option selected
+--keys [KEYS ...]     key(s) for the cipher
+--decrypt             enables decryption mode
 
--o, --output 'path/to/output'    The path to the output file.
-    
--c, --cipher 'cipher'            The selected encryption algorithm.
-   
--k, --key                        Specify the cipher key. 
-
--w, --word                       Specify the cipher keyword (if necessary).
-    
--h, --help                       Receive more info on this script. 
 ```
 
+### Documentation:
+Because this project seeks to be a well-designed command-line interface application, all of the documentation necessary for use can be found using the ```-h``` or ```--help```. 
+
+Documentation for this project exists on this page, as well as within the source code. As this project is largely built on top of pycipher, its [documentation](https://pycipher.readthedocs.io/en/master/#) may be helpful. 
 
 ## Supported Ciphers:
 * [ADFGX](http://practicalcryptography.com/ciphers/adfgx-cipher/)
