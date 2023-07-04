@@ -40,7 +40,7 @@ class Parser:
                             required=False)
         parser.add_argument('-o', '--output', help='path/to/output/file. optional; default=io/output.txt',
                             required=False, default=utils.get_relative_path('io/output.txt'))
-        parser.add_argument('--cipher', choices=['adfgx', 'adfgvx', 'affine', 'autokey', 'atbash', 'beaufort',
+        parser.add_argument('-c', '--cipher', choices=['adfgx', 'adfgvx', 'affine', 'autokey', 'atbash', 'beaufort',
                                                        'bifid', 'caesar', 'col-trans',
                                                        'gronsfeld', 'playfair', 'polybius', 'porta',
                                                        'rail-fence', 'rot13', 'simple-sub', 'vigenere'],
