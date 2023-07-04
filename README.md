@@ -29,9 +29,8 @@ options:
                         path/to/output/file. optional; default=io/output.txt
   --cipher {adfgx, adfgvx, affine, autokey, atbash, 
             beaufort, bifid, caesar, col-trans, 
-            four-square, gronsfeld, playfair, 
-            polybius, porta, rail-fence, 
-            rot13, simple-sub, vigenere}
+            gronsfeld, playfair, polybius, porta, 
+            rail-fence, rot13, simple-sub, vigenere}
                         the cipher option selected
   -k [KEYS ...], --keys [KEYS ...]
                         key(s) for the cipher
@@ -53,7 +52,6 @@ As this project is largely built on top of Pycipher, its [documentation](https:/
 * [Bifid](http://practicalcryptography.com/ciphers/bifid-cipher/)
 * [Caesar](http://practicalcryptography.com/ciphers/caesar-cipher/)
 * [Columnar transposition](http://practicalcryptography.com/ciphers/columnar-transposition-cipher/)
-* [Four-square](http://practicalcryptography.com/ciphers/four-square-cipher/)
 * [Gronsfeld cipher](http://practicalcryptography.com/ciphers/classical-era/vigenere-gronsfeld-and-autokey/#variants)
 * [Playfair](http://practicalcryptography.com/ciphers/classical-era/playfair/)
 * [Polybius Square](http://practicalcryptography.com/ciphers/classical-era/polybius-square/) (wip)

@@ -92,7 +92,6 @@ class Encoder:
             print("No keys detected. Auto-generating keysquare...")
             self.keys.append(utils.generate_keysquare(playfair=True))
             print("Saved keysquare to ksq.txt for future decryption.")
-
         else:
             if not self.keys:
                 print("No keys detected. Auto-generating keysquare...")
@@ -254,13 +253,6 @@ class Encoder:
             utils.print_error_msg(e)
             return
 
-    # Encrypts a file using the Four-Square cipher.
-    # FIXME
-    def four_square(self, key1, key2):
-        # If no key exists, generate it.
-
-        self.write_output(pycipher.Foursquare(key1, key2).encipher(self.plaintext))
-
     # Encrypts a file using the Gronsfeld cipher.
     def gronsfeld(self):
         # If no key exists, generate it.
@@ -302,11 +294,15 @@ class Encoder:
             return
 
     # Encrypts a file using the Porta cipher.
-    # FIXME
-    def porta(self, key):
+    def porta(self):
         # If no key exists, generate it.
         self.generate_key()
-        self.write_output(pycipher.Porta(key).encipher(self.plaintext))
+        try:
+            self.write_output(pycipher.Porta(self.keys[0]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Rail-fence cipher.
     def rail_fence(self):

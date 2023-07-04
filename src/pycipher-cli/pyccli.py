@@ -50,8 +50,6 @@ if __name__ == "__main__":
                 encoder.caesar()
             case 'col-trans':
                 encoder.columnar_transposition()
-            case 'four-square':
-                encoder.four_square()
             case 'gronsfeld':
                 encoder.gronsfeld()
             case 'playfair':
