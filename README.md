@@ -16,21 +16,26 @@ Once Python is installed, you can use this script by entering the ```../src/pyci
 
 ***Example use-case: Caesar cipher.***
 ```
-python3 pyccli.py -i 'msg.txt' -o 'secret.txt' -c 'caesar' -k '5'
+python3 pyccli.py -i 'msg.txt' -o 'secret.txt' --cipher 'caesar'
 ```
 
 ### Arguments:
 ```
--h, --help                Show this help message and exit
--i, --input INPUT         'Path/To/Input/File'
--o, --output OUTPUT       '/Path/To/Output/File'; default='output.txt'
--c, --cipher {adfgx, adfgvx, affine, autokey,
-              atbash, beaufort, bifid, caesar, 
-              columnar, four-square, gronsfeld, playfair, polybius,
-              porta, rail-fence, rot13, simple-sub, vigenere}
-                          The cipher option selected
--k, --keys [KEYS ...]     Key(s) for the cipher
---decrypt                 Enables decryption mode
+options:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        path/to/input/file
+  -o OUTPUT, --output OUTPUT
+                        path/to/output/file. optional; default=io/output.txt
+  --cipher {adfgx, adfgvx, affine, autokey, atbash, 
+            beaufort, bifid, caesar, col-trans, 
+            four-square, gronsfeld, playfair, 
+            polybius, porta, rail-fence, 
+            rot13, simple-sub, vigenere}
+                        the cipher option selected
+  -k [KEYS ...], --keys [KEYS ...]
+                        key(s) for the cipher
+  --decrypt             enables decryption mode
 ```
 
 ### Documentation:

@@ -31,7 +31,7 @@ class Parser:
         # Instantiate parser object.
         parser = argparse.ArgumentParser(
             prog="pycipher-cli",
-            usage="python3 pyccli.py [-i] PATH/TO/FILE [-c] CIPHER [-k] KEY",
+            usage="python3 pyccli.py --cipher [choice]",
             description='Encrypt a file using a cipher. For more information about cryptography and ciphers, '
                         'visit http://practicalcryptography.com/ciphers/.')
 

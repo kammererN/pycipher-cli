@@ -25,7 +25,7 @@ import random as rand
 
 # Key length generation constants.
 KEYLEN_MIN = 5
-KEYLEN_MAX = 15
+KEYLEN_MAX = 25
 
 
 # Class that handles the execution of file encryption.
@@ -56,43 +56,70 @@ class Encoder:
             print(f"Successfully encrypted file to {self.output} using {self.cipher} cipher.")
 
     # Generate key if not provided in args.
-    def generate_key(self, bifid=False, gronsfeld=False, simple_sub=False):
+    def generate_key(self, _min=KEYLEN_MIN, _max=KEYLEN_MAX, bifid=False, gronsfeld=False, simple_sub=False):
         # Generates period key for Bifid cipher.
         if bifid:
             print("No period detected. Auto-generating period...")
-            self.keys.append(utils.generate_period(KEYLEN_MIN, KEYLEN_MAX))
+            self.keys.append(utils.generate_period(_min, _max))
             print("Saved period to key.txt for future decryption.")
 
         # Generates key for Gronsfeld cipher.
-        if gronsfeld:
+        elif gronsfeld:
             print("No key detected. Auto-generating key...")
-            self.keys.append(utils.generate_num_key(length=rand.randint(KEYLEN_MIN, KEYLEN_MAX)))
+            self.keys.append(utils.generate_num_key(length=rand.randint(_min, _max)))
             print("Saved period to key.txt for future decryption.")
 
         # Generates alpha-unique key for simple-substitution.
-        if simple_sub:
+        elif simple_sub:
             print("No key detected. Auto-generating key...")
-            self.keys.append(utils.generate_alpha_key(length=rand.randint(KEYLEN_MIN, KEYLEN_MAX), simple_sub=True))
+            self.keys.append(utils.generate_alpha_key(length=rand.randint(_min, _max), simple_sub=True))
             print("Saved key to key.txt for future decryption.")
 
         # If no key exists, generate it.
         if not self.keys:
             print("No key detected. Auto-generating key...")
-            self.keys.append(utils.generate_alpha_key(length=rand.randint(KEYLEN_MIN, KEYLEN_MAX)))
+            self.keys.append(utils.generate_alpha_key(length=rand.randint(_min, _max)))
             print("Saved key to key.txt for future decryption.")
 
     # Generate keysquare if not provided in args.
-    def generate_ksq(self, adfgvx=False):
+    def generate_ksq(self, adfgvx=False, playfair=False):
         if adfgvx:
             if not self.keys:
                 print("No keys detected. Auto-generating keysquare...")
                 self.keys.append(utils.generate_keysquare())
                 print("Saved keysquare to ksq.txt for future decryption.")
+        elif playfair:
+            print("No keys detected. Auto-generating keysquare...")
+            self.keys.append(utils.generate_keysquare(playfair=True))
+            print("Saved keysquare to ksq.txt for future decryption.")
+
         else:
             if not self.keys:
                 print("No keys detected. Auto-generating keysquare...")
                 self.keys.append(utils.generate_keysquare())
                 print("Saved keysquare to ksq.txt for future decryption.")
+
+    # Prepares plaintext for Playfair cipher.
+    def prepare_plaintext(self):
+        # Replace double letters with 'x'
+        modified_text = ''
+        for i in range(len(self.plaintext) - 1):
+            if self.plaintext[i] == self.plaintext[i + 1]:
+                modified_text += self.plaintext[i] + 'x'
+            else:
+                modified_text += self.plaintext[i]
+
+        # Add the last character
+        modified_text += self.plaintext[-1]
+
+        # If the text length is odd, add an 'x'
+        if len(modified_text) % 2 != 0:
+            self.modified_text += 'x'
+
+        # Break into pairs of letters
+        pairs = ' '.join(modified_text[i:i + 2] for i in range(0, len(modified_text), 2))
+
+        self.plaintext = pairs
 
     # Encrypts a file using the ADFGX cipher.
     def adfgx(self):
@@ -230,6 +257,8 @@ class Encoder:
     # Encrypts a file using the Four-Square cipher.
     # FIXME
     def four_square(self, key1, key2):
+        # If no key exists, generate it.
+
         self.write_output(pycipher.Foursquare(key1, key2).encipher(self.plaintext))
 
     # Encrypts a file using the Gronsfeld cipher.
@@ -246,18 +275,37 @@ class Encoder:
             return
 
     # Encrypts a file using the Playfair cipher.
-    # FIXME
-    def playfair(self, key):
-        self.write_output(pycipher.Playfair(key).encipher(self.plaintext))
+    def playfair(self):
+        # Generate keysquare
+        self.generate_ksq(playfair=True)
+
+        # Prepare plaintext for Playfair cipher.
+        self.prepare_plaintext()
+
+        try:
+            self.write_output(pycipher.Playfair(self.keys[0]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Polybius Square cipher.
-    # FIXME
     def polybius_square(self):
-        pass
+        # Generate keysquare as polybius key
+        self.generate_ksq()
+
+        try:
+            self.write_output(pycipher.PolybiusSquare(self.keys[0]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Porta cipher.
     # FIXME
     def porta(self, key):
+        # If no key exists, generate it.
+        self.generate_key()
         self.write_output(pycipher.Porta(key).encipher(self.plaintext))
 
     # Encrypts a file using the Rail-fence cipher.
@@ -278,14 +326,17 @@ class Encoder:
             return
 
     # Encrypts a file using the Rot13 cipher.
-    # FIXME
     def rot13(self):
-        self.write_output(pycipher.Rot13().encipher(self.plaintext, True))
+        try:
+            self.write_output(pycipher.Rot13().encipher(self.plaintext, True))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Simple Substitution cipher.
-    # FIXME
     def simple_substitution(self):
-        # Key hijinks
+        # Key generation if not user-submitted.
         self.generate_key(simple_sub=True)
 
         try:

@@ -23,21 +23,27 @@ import string
 import os
 from math import gcd
 
+
 # Helper functions used in the rest of the project.
 
 
 # Generates a random valid keysquare of 5x5, with J --> I. If ADFGVX, 6x6.
-def generate_keysquare(adfgvx=False, store_file=True):
+def generate_keysquare(adfgvx=False, store_file=True, playfair=False):
     if adfgvx:  # Generate a keysquare of 6x6 A-Z and 0-9
         keysquare = list(string.ascii_uppercase + string.digits)
         random.shuffle(keysquare)
         keysquare_string = ''.join(keysquare)
+    elif playfair:  # Generate a keysquare according to playSTUPID rules
+        key = generate_alpha_key(playfair=True)
+        remaining_chars = [char for char in string.ascii_uppercase if char not in key]
+        remaining_chars.remove('J')
+        random.shuffle(remaining_chars)
+        keysquare_string = key + ''.join(remaining_chars)
     else:  # Generate a keysquare of 5x5 A-Z, no J
         keysquare = list(string.ascii_uppercase)
         keysquare.remove('J')
         random.shuffle(keysquare)
         keysquare_string = ''.join(keysquare)
-
     if store_file:
         with open(get_relative_path('io/ksq.txt'), 'w') as file:
             file.write(keysquare_string)
@@ -46,16 +52,18 @@ def generate_keysquare(adfgvx=False, store_file=True):
 
 
 # Generates an alphabetic key of length. Used for most ciphers.
-def generate_alpha_key(length, store_file=True, simple_sub=False):
+def generate_alpha_key(length=5, store_file=True, simple_sub=False, playfair=False):
     if simple_sub:
         alphabet = list(string.ascii_uppercase)
         random.shuffle(alphabet)
         key = ''.join(alphabet)
-
+    elif playfair:
+        uppercase_without_j = string.ascii_uppercase.replace('J', '')
+        key = ''.join(random.sample(uppercase_without_j, 5))
     else:
         # Generate a random key of length 'length' from the alphabet.
         alphabet = string.ascii_uppercase
-        key = ''.join(random.choice(alphabet) for _ in range(len()))
+        key = ''.join(random.choice(alphabet) for _ in range(length))
 
     if store_file:
         with open(get_relative_path('io/key.txt'), 'w') as file:
