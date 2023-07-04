@@ -1,9 +1,8 @@
-
 """
 GNU General Public License v3+
 
 PyCipher-CLI: encryption tool for text (.txt) files.
-Copyright (C) 2023 Nicholas Kammerer (nkammerer@albany.edu)
+Copyright (C) 2023 nxrada
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.html>.
 
 """
-
 import argparse
 
 
@@ -28,57 +26,28 @@ import argparse
 class Parser:
 
     def __init__(self):
-        # Instantiate argparse.
+        # Instantiate parser object.
         parser = argparse.ArgumentParser(
             prog="pycipher-cli",
             usage="python3 pyccli.py [-i] PATH/TO/FILE [-c] CIPHER [-k] KEY",
             description='Encrypt a file using a cipher. For more information about cryptography and ciphers, '
                         'visit http://practicalcryptography.com/ciphers/.')
 
-        # Add arguments to the parser.
-        # TODO: Add functionality for second key (Affine, Foursquare).
+        # Parser arguments.
         parser.add_argument('-i', '--input', help='path/to/input/file', default='input.txt')
         parser.add_argument('-o', '--output', help='optional/path/to/output/file', required=False,
                             default='output.txt')
         parser.add_argument('-c', '--cipher', choices=['adfgx', 'adfgvx', 'affine', 'autokey', 'atbash', 'beaufort',
-                                                       'bifid', 'caesar', 'columnar_trans', 'enigma_m3', 'four_square',
-                                                       'gronsfeld', 'm209', 'playfair', 'poly_square', 'porta',
+                                                       'bifid', 'caesar', 'columnar_trans', 'four_square',
+                                                       'gronsfeld', 'playfair', 'poly_square', 'porta',
                                                        'rail_fence', 'rot13', 'simple_sub', 'vigenere'],
                             help='the cipher option selected', required=True)
-        parser.add_argument('-k', '--key', help='key for the cipher', required=False, default=None)
-        parser.add_argument('-k2', '--key2', help='optional second key for the cipher', required=False, default=None)
+        parser.add_argument('-k', '--keys', nargs='*', help='key(s) for the cipher', required=False, default=None)
         parser.add_argument('-w', '--word', help='keyword for the cipher', required=False, default=None)
         parser.add_argument('-p', '--period', help='period for the cipher', required=False, default=None)
+
         # Parse the arguments.
         self.args = parser.parse_args()
-
-    # Accessor for the cipher argument.
-    def get_cipher(self):
-        return self.args.cipher
-
-    # Accessor for the input file argument.
-    def get_input(self):
-        return self.args.input
-
-    # Accessor for the output file argument.
-    def get_output(self):
-        return self.args.output
-
-    # Accessor for the decrypt argument.
-    def get_key(self):
-        return self.args.key
-
-    # Accessor for the optional second key argument.
-    def get_key2(self):
-        return self.args.key2
-
-    # Accessor for the optional keyword argument.
-    def get_keyword(self):
-        return self.args.word
-
-    # Accessor for the optional period argument.
-    def get_period(self):
-        return self.args.period
 
 
 # Point user to proper script in case of execution.
