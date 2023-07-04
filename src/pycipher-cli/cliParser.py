@@ -43,8 +43,6 @@ class Parser:
                                                        'rail_fence', 'rot13', 'simple_sub', 'vigenere'],
                             help='the cipher option selected', required=True)
         parser.add_argument('-k', '--keys', nargs='*', help='key(s) for the cipher', required=False, default=None)
-        parser.add_argument('-w', '--word', help='keyword for the cipher', required=False, default=None)
-        parser.add_argument('-p', '--period', help='period for the cipher', required=False, default=None)
 
         # Parse the arguments.
         self.args = parser.parse_args()

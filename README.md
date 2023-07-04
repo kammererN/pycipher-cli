@@ -56,6 +56,8 @@ python3 pyccli.py -i 'msg.txt' -o 'secret.txt' -c 'caesar' -k '5'
 * [Simple Substitution](http://practicalcryptography.com/ciphers/classical-era/simple-substitution/)
 * [Vigenere](http://practicalcryptography.com/ciphers/classical-era/vigenere-gronsfeld-and-autokey/)
 
+Please note: *this project does not yet support decryption.*
+
 ### Acknowledgments:
 This project builds heavily on information compiled by James Lyons at http://practicalcryptography.com, as well as his [pycipher](https://github.com/jameslyons/pycipher) library.
 

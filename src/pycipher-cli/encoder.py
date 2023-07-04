@@ -1,4 +1,3 @@
-
 """
 GNU General Public License v3+
 
@@ -21,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.h
 """
 
 import pycipher
-import utils
+import utils as u
 
 
 # Class that handles the execution of file encryption.
@@ -46,11 +45,19 @@ class Encoder:
     # Encrypts a file using the ADFGX cipher.
     def adfgx(self):  # FIXME
         # If the cipher is ADFGX, read the keysquare to self.keys[0] (primary key location) for encryption.
-        self.keys[0] = utils.read_keysquare(self.keys[0])
-        print(self.keys[0])  # DEBUG
-        # Encrypt the plaintext using the ADFGX cipher, and write the ciphertext to output.txt.
-        self.write_output(pycipher.ADFGX(key=self.keys[len(self.keys) - 2],
-                                         keyword=self.keys[len(self.keys) - 1]).encipher(self.plaintext))
+        # Ensures that J is dropped from the keysquare.
+        self.keys[0] = u.j_to_i(u.read_keysquare(self.keys[0]))
+
+        # Ensure that the plaintext drops Js in text.
+        self.plaintext = u.j_to_i(self.plaintext)
+
+        try:
+            # Encrypt the plaintext using the ADFGX cipher, and write the ciphertext to output.txt.
+            self.write_output(pycipher.ADFGX(key=self.keys[len(self.keys) - 2],
+                                             keyword=self.keys[len(self.keys) - 1]).encipher(self.plaintext))
+        except Exception as e:
+            print(f"Yikes! An error has occurred. Please create a new issue on this project's repository at "
+                  f"https://github.com/nxrada/pycipher-cli/issues/new\n\tError code:\n\t{e}")
 
     # Encrypts a file using the ADFGVX cipher.
     def adfgvx(self, key, keyword):  # FIXME

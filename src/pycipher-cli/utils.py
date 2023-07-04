@@ -18,9 +18,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.html>.
 
 """
-
-
 # Helper functions used in the rest of the project.
+
+
+# Reads a keysquare from a file and returns it as a string. Necessary for keysquare ciphers.
 def read_keysquare(filename):
     keysquare = []
     with open(filename, 'r') as f:
@@ -31,3 +32,10 @@ def read_keysquare(filename):
     # Join the lines with newline characters
     keysquare_string = ''.join(keysquare)
     return keysquare_string
+
+
+# Converts any 'j' within the plaintext to 'i'. Necessary for ADFGX encryption.
+def j_to_i(plaintext):
+    plaintext = plaintext.replace('j', 'i')
+    plaintext = plaintext.replace('J', 'I')
+    return plaintext
