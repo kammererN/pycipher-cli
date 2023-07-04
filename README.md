@@ -21,23 +21,22 @@ python3 pyccli.py -i 'msg.txt' -o 'secret.txt' -c 'caesar' -k '5'
 
 ### Arguments:
 ```
--h, --help            Show this help message and exit
---input INPUT         'Path/To/Input/File'
---output OUTPUT       '/Path/To/Output/File' Optional; default=output.txt
---cipher {adfgx, adfgvx, affine, autokey,
-          atbash, beaufort, bifid, caesar, 
-          columnar, four-square, gronsfeld, playfair, polybius,
-          porta, rail-fence, rot13, simple-sub, vigenere}
-                      the cipher option selected
---keys [KEYS ...]     key(s) for the cipher
---decrypt             enables decryption mode
-
+-h, --help                Show this help message and exit
+-i, --input INPUT         'Path/To/Input/File'
+-o, --output OUTPUT       '/Path/To/Output/File'; default='output.txt'
+-c, --cipher {adfgx, adfgvx, affine, autokey,
+              atbash, beaufort, bifid, caesar, 
+              columnar, four-square, gronsfeld, playfair, polybius,
+              porta, rail-fence, rot13, simple-sub, vigenere}
+                          The cipher option selected
+-k, --keys [KEYS ...]     Key(s) for the cipher
+--decrypt                 Enables decryption mode
 ```
 
 ### Documentation:
-Because this project seeks to be a well-designed command-line interface application, all of the documentation necessary for use can be found using the ```-h``` or ```--help```. 
+This project seeks to be a well-designed command-line interface application; all of the documentation necessary for use can be found using the ```-h``` or ```--help``` arguments. 
 
-Documentation for this project exists on this page, as well as within the source code. As this project is largely built on top of pycipher, its [documentation](https://pycipher.readthedocs.io/en/master/#) may be helpful. 
+As this project is largely built on top of Pycipher, its [documentation](https://pycipher.readthedocs.io/en/master/#) may be helpful for prospective contributors. 
 
 ## Supported Ciphers:
 * [ADFGX](http://practicalcryptography.com/ciphers/adfgx-cipher/)
@@ -62,7 +61,7 @@ Documentation for this project exists on this page, as well as within the source
 Please note: *this project does not yet support decryption.*
 
 ### Acknowledgments:
-This project builds heavily on information compiled by James Lyons at http://practicalcryptography.com, as well as his [pycipher](https://github.com/jameslyons/pycipher) library.
+This project builds heavily on information compiled by James Lyons at http://practicalcryptography.com, as well as his [Pycipher](https://github.com/jameslyons/pycipher) library.
 
 To learn more about cryptography and its history, check out his site [Practical Cryptography](http://practicalcryptography.com). 
 

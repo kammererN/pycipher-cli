@@ -34,43 +34,41 @@ if __name__ == "__main__":
         match encoder.cipher:
             case 'adfgx':
                 encoder.adfgx()
-            case 'adfgvx':  # TODO: Implement 01
-                pass
-            case 'affine':  # TODO: Implement 02
-                pass
-            case 'autokey':  # TODO: Implement 03
-                pass
-            case 'atbash':  # TODO: Implement 04
-                pass
-            case 'beaufort':  # TODO: Implement 05
-                pass
-            case 'bifid':  # TODO: Implement 06
-                pass
-            case 'caesar':  # TODO: Implement 07
-                pass
-            case 'columnar':  # TODO: Implement 08
-                pass
-            case 'foursquare':  # TODO: Implement 09
-                pass
-            case 'gronsfeld':  # TODO: Implement 10
-                pass
-            case 'playfair':  # TODO: Implement 11
-                pass
-            case 'polybius':  # TODO: Implement 12
-                pass
-            case 'porta':  # TODO: Implement 13
-                pass
-            case 'railfence':  # TODO: Implement 14
-                pass
-            case 'rot13':  # TODO: Implement 15
-                pass
-            case 'simple-sub':  # TODO: Implement 16
-                pass
-            case 'vigenere':  # TODO: Implement 17
-                pass
+            case 'adfgvx':
+                encoder.adfgvx()
+            case 'affine':
+                encoder.affine()
+            case 'autokey':
+                encoder.autokey()
+            case 'atbash':
+                encoder.atbash()
+            case 'beaufort':
+                encoder.beaufort()
+            case 'bifid':
+                encoder.bifid()
+            case 'caesar':
+                encoder.caesar()
+            case 'col-trans':
+                encoder.columnar_transposition()
+            case 'four-square':
+                encoder.four_square()
+            case 'gronsfeld':
+                encoder.gronsfeld()
+            case 'playfair':
+                encoder.playfair()
+            case 'polybius':
+                encoder.polybius_square()
+            case 'porta':
+                encoder.porta()
+            case 'rail-fence':
+                encoder.rail_fence()
+            case 'rot13':
+                encoder.rot13()
+            case 'simple-sub':
+                encoder.simple_substitution()
+            case 'vigenere':
+                encoder.vigenere()
 
-        # Print success message.
-        print(f"Successfully encrypted {encoder.input} to {encoder.output} using {encoder.cipher} cipher.")
     # Decrypt
     else:
         print("Yikes! Decryption is not yet supported. Feel free to contribute to this feature by forking the"

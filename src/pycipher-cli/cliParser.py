@@ -19,6 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.h
 
 """
 import argparse
+import utils
 
 
 # Parses command-line arguments.
@@ -26,6 +27,7 @@ import argparse
 class Parser:
 
     def __init__(self):
+
         # Instantiate parser object.
         parser = argparse.ArgumentParser(
             prog="pycipher-cli",
@@ -34,15 +36,16 @@ class Parser:
                         'visit http://practicalcryptography.com/ciphers/.')
 
         # Parser arguments.
-        parser.add_argument('--input', help='path/to/input/file', default='input.txt', required=True)
-        parser.add_argument('--output', help='/path/to/output/file. optional; default=output.txt', required=False,
-                            default='output.txt')
+        parser.add_argument('-i', '--input', help='path/to/input/file', default=utils.get_relative_path('io/input.txt'),
+                            required=False)
+        parser.add_argument('-o', '--output', help='path/to/output/file. optional; default=io/output.txt',
+                            required=False, default=utils.get_relative_path('io/output.txt'))
         parser.add_argument('--cipher', choices=['adfgx', 'adfgvx', 'affine', 'autokey', 'atbash', 'beaufort',
-                                                       'bifid', 'caesar', 'columnar', 'four-square',
+                                                       'bifid', 'caesar', 'col-trans', 'four-square',
                                                        'gronsfeld', 'playfair', 'polybius', 'porta',
                                                        'rail-fence', 'rot13', 'simple-sub', 'vigenere'],
-                            help='the cipher option selected. Required', required=True)
-        parser.add_argument('--keys', nargs='*', help='key(s) for the cipher', required=False, default=None)
+                            help='the cipher option selected', required=True)
+        parser.add_argument('-k', '--keys', nargs='*', help='key(s) for the cipher', required=False, default=None)
         parser.add_argument('--decrypt', help='enables decryption mode', action='store_true',
                             required=False, default=False)
 

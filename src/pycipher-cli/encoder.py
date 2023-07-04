@@ -20,7 +20,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.en.h
 """
 
 import pycipher
-import utils as u
+import utils
+import random as rand
+
+# Key length generation constants.
+KEYLEN_MIN = 5
+KEYLEN_MAX = 15
 
 
 # Class that handles the execution of file encryption.
@@ -31,7 +36,10 @@ class Encoder:
         self.input = input_file
         self.output = output_file
         self.cipher = cipher
-        self.keys = keys if isinstance(keys, list) else [keys]
+        if isinstance(keys, list):
+            self.keys = keys
+        else:
+            self.keys = []
 
         # Read input.txt to self.plaintext
         with open(self.input, 'r') as file:
@@ -42,90 +50,263 @@ class Encoder:
         with open(self.output, 'w') as output:
             output.write(ciphertext)
 
+    # Print result of encoder activity.
+    def print_result(self, success=False):
+        if success:
+            print(f"Successfully encrypted file to {self.output} using {self.cipher} cipher.")
+
+    # Generate key if not provided in args.
+    def generate_key(self, bifid=False, gronsfeld=False, simple_sub=False):
+        # Generates period key for Bifid cipher.
+        if bifid:
+            print("No period detected. Auto-generating period...")
+            self.keys.append(utils.generate_period(KEYLEN_MIN, KEYLEN_MAX))
+            print("Saved period to key.txt for future decryption.")
+
+        # Generates key for Gronsfeld cipher.
+        if gronsfeld:
+            print("No key detected. Auto-generating key...")
+            self.keys.append(utils.generate_num_key(length=rand.randint(KEYLEN_MIN, KEYLEN_MAX)))
+            print("Saved period to key.txt for future decryption.")
+
+        # Generates alpha-unique key for simple-substitution.
+        if simple_sub:
+            print("No key detected. Auto-generating key...")
+            self.keys.append(utils.generate_alpha_key(length=rand.randint(KEYLEN_MIN, KEYLEN_MAX), simple_sub=True))
+            print("Saved key to key.txt for future decryption.")
+
+        # If no key exists, generate it.
+        if not self.keys:
+            print("No key detected. Auto-generating key...")
+            self.keys.append(utils.generate_alpha_key(length=rand.randint(KEYLEN_MIN, KEYLEN_MAX)))
+            print("Saved key to key.txt for future decryption.")
+
+    # Generate keysquare if not provided in args.
+    def generate_ksq(self, adfgvx=False):
+        if adfgvx:
+            if not self.keys:
+                print("No keys detected. Auto-generating keysquare...")
+                self.keys.append(utils.generate_keysquare())
+                print("Saved keysquare to ksq.txt for future decryption.")
+        else:
+            if not self.keys:
+                print("No keys detected. Auto-generating keysquare...")
+                self.keys.append(utils.generate_keysquare())
+                print("Saved keysquare to ksq.txt for future decryption.")
+
     # Encrypts a file using the ADFGX cipher.
-    def adfgx(self):  # FIXME
-        # If the cipher is ADFGX, read the keysquare to self.keys[0] (primary key location) for encryption.
-        # Ensures that J is dropped from the keysquare.
-        self.keys[0] = u.j_to_i(u.read_keysquare(self.keys[0]))
+    def adfgx(self):
+        # If no key or keysquare exists, generate and save them.
+        self.generate_ksq()
+        self.generate_key()
 
         # Ensure that the plaintext drops Js in text.
-        self.plaintext = u.j_to_i(self.plaintext)
+        self.plaintext = utils.j_to_i(self.plaintext)
 
         try:
             # Encrypt the plaintext using the ADFGX cipher, and write the ciphertext to output.txt.
-            self.write_output(pycipher.ADFGX(key=self.keys[len(self.keys) - 2],
-                                             keyword=self.keys[len(self.keys) - 1]).encipher(self.plaintext))
+            self.write_output(pycipher.ADFGX(key=self.keys[0],
+                                             keyword=self.keys[1]).encipher(self.plaintext))
+            self.print_result(success=True)
         except Exception as e:
-            print(f"Yikes! An error has occurred. Please create a new issue on this project's repository at "
-                  f"https://github.com/nxrada/pycipher-cli/issues/new\n\tError code:\n\t{e}")
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the ADFGVX cipher.
-    def adfgvx(self, key, keyword):  # FIXME
-        self.write_output(pycipher.ADFGVX(key, keyword).encipher(self.plaintext))
+    def adfgvx(self):
+        # If no key or keysquare exists, generate and save them.
+        self.generate_ksq(adfgvx=True)
+        self.generate_key()
+        try:
+            # Encrypt the plaintext using the ADFGVX cipher, and write the ciphertext to output.txt.
+            self.write_output(pycipher.ADFGVX(key=self.keys[0],
+                                              keyword=self.keys[1]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Affine cipher.
-    def affine(self, key1, key2):  # FIXME
-        self.write_output(pycipher.Affine(int(key1), int(key2)).encipher(self.plaintext, True))
+    def affine(self):
+        # If no key or keysquare exists, generate and save them.
+        if not self.keys:
+            # Key 'a' should be chosen such that a and 26 are coprime.
+            self.keys.append(rand.choice([i for i in range(1, 26) if utils.is_coprime(i)]))
+            # Key 'b' can be any integer from 0 to 25.
+            self.keys.append(rand.randint(0, 25))
+
+            # Write affine keys to key.txt
+            with open(utils.get_relative_path('io/key.txt'), 'w') as file:
+                for key in self.keys:
+                    file.write(str(key))
+                    file.write('\n')
+        try:
+            # Encrypt the plaintext using the Affine cipher, and write the ciphertext to output.txt.
+            self.write_output(pycipher.Affine(int(self.keys[0]), int(self.keys[1])).encipher(self.plaintext, True))
+
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Autokey cipher.
-    def autokey(self, key):  # FIXME
-        self.write_output(pycipher.Autokey(key).encipher(self.plaintext))
+    def autokey(self):
+        # If no key exists, generate it.
+        self.generate_key()
+
+        try:
+            # Encrypt the plaintext using the Autokey cipher, and write the ciphertext to output.txt.
+            self.write_output(pycipher.Autokey(self.keys[0]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Atbash cipher.
-    def atbash(self):  # FIXME
-        self.write_output(pycipher.Atbash().encipher(self.plaintext, True))
+    def atbash(self):
+        try:
+            self.write_output(pycipher.Atbash().encipher(self.plaintext, True))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Beaufort cipher.
-    def beaufort(self, key):  # FIXME
-        self.write_output(pycipher.Beaufort(key).encipher(self.plaintext))
+    def beaufort(self):
+        # If no key exists, generate it.
+        self.generate_key()
+
+        try:
+            # Encrypt the plaintext using the Affine cipher, and write the ciphertext to output.txt.
+            self.write_output(pycipher.Beaufort(self.keys[0]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Bifid cipher.
-    def bifid(self, key, period):  # FIXME
-        self.write_output(pycipher.Bifid(key, period).encipher(self.plaintext))
+    def bifid(self):
+        # Generate keysquare as bifid key
+        self.generate_ksq()
+
+        # Generate Bifid period
+        self.generate_key(bifid=True)
+        try:
+            self.write_output(pycipher.Bifid(self.keys[0], self.keys[1]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Caesar cipher.
-    def caesar(self, key):  # FIXME
-        self.write_output(pycipher.Caesar(int(key)).encipher(self.plaintext, True))
+    def caesar(self):
+        if not self.keys:
+            print("No keys detected. Auto-generating key...")
+            self.keys.append(rand.randint(0, 26))
+            print("Saved key to key.txt for future decryption.")
+
+            # Write affine keys to key.txt
+            with open(utils.get_relative_path('io/key.txt'), 'w') as file:
+                file.write(str(self.keys[0]))
+        try:
+            self.write_output(pycipher.Caesar(self.keys[0]).encipher(self.plaintext, True))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Columnar Transposition cipher.
-    def columnar_transposition(self, key):  # FIXME
-        self.write_output(pycipher.ColTrans(key).encipher(self.plaintext))
+    def columnar_transposition(self):
+        # If no key exists, generate it.
+        self.generate_key()
+        try:
+            # Encrypt the plaintext using the Columnar-Transposition cipher, and write the ciphertext to output.txt.
+            self.write_output(pycipher.ColTrans(self.keys[0]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Four-Square cipher.
-    def four_square(self, key1, key2):  # FIXME
+    # FIXME
+    def four_square(self, key1, key2):
         self.write_output(pycipher.Foursquare(key1, key2).encipher(self.plaintext))
 
     # Encrypts a file using the Gronsfeld cipher.
-    def gronsfeld(self, key):  # FIXME
-        self.write_output(pycipher.Gronsfeld(key).encipher(self.plaintext))
+    def gronsfeld(self):
+        # If no key exists, generate it.
+        self.generate_key(gronsfeld=True)
+
+        try:
+            # Encrypt the plaintext using the Columnar-Transposition cipher, and write the ciphertext to output.txt.
+            self.write_output(pycipher.Gronsfeld(self.keys[0]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Playfair cipher.
-    def playfair(self, key):  # FIXME
+    # FIXME
+    def playfair(self, key):
         self.write_output(pycipher.Playfair(key).encipher(self.plaintext))
 
     # Encrypts a file using the Polybius Square cipher.
-    def polybius_square(self):  # FIXME
+    # FIXME
+    def polybius_square(self):
         pass
 
     # Encrypts a file using the Porta cipher.
-    def porta(self, key):  # FIXME
+    # FIXME
+    def porta(self, key):
         self.write_output(pycipher.Porta(key).encipher(self.plaintext))
 
     # Encrypts a file using the Rail-fence cipher.
-    def rail_fence(self, key):  # FIXME
-        self.write_output(pycipher.Railfence(int(key)).encipher(self.plaintext, True))
+    def rail_fence(self):
+        if not self.keys:
+            print("No key detected. Auto-generating key...")
+            self.keys.append(rand.randint(0, 15))
+            print("Saved key to key.txt for future decryption.")
+
+            # Write affine keys to key.txt
+            with open(utils.get_relative_path('io/key.txt'), 'w') as file:
+                file.write(str(self.keys[0]))
+        try:
+            self.write_output(pycipher.Railfence(int(self.keys[0])).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Rot13 cipher.
-    def rot13(self):  # FIXME
+    # FIXME
+    def rot13(self):
         self.write_output(pycipher.Rot13().encipher(self.plaintext, True))
 
     # Encrypts a file using the Simple Substitution cipher.
-    def simple_substitution(self, key):  # FIXME
-        self.write_output(pycipher.SimpleSubstitution(key).encipher(self.plaintext, True))
+    # FIXME
+    def simple_substitution(self):
+        # Key hijinks
+        self.generate_key(simple_sub=True)
+
+        try:
+            self.write_output(pycipher.SimpleSubstitution(self.keys[0]).encipher(self.plaintext, True))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
     # Encrypts a file using the Vigenere cipher.
-    def vigenere(self, key):  # FIXME
-        self.write_output(pycipher.Vigenere(key).encipher(self.plaintext))
+    def vigenere(self):
+        # If no key exists, generate it.
+        self.generate_key()
+
+        try:
+            # Encrypt the plaintext using the Columnar-Transposition cipher, and write the ciphertext to output.txt.
+            self.write_output(pycipher.Vigenere(self.keys[0]).encipher(self.plaintext))
+            self.print_result(success=True)
+        except Exception as e:
+            utils.print_error_msg(e)
+            return
 
 
 # Point user to proper script in case of execution.
