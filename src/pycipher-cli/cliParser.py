@@ -23,7 +23,6 @@ import utils
 
 
 # Parses command-line arguments.
-# TODO: Add functionality for decrypting files.
 class Parser:
 
     def __init__(self):
@@ -46,8 +45,6 @@ class Parser:
                                                        'rail-fence', 'rot13', 'simple-sub', 'vigenere'],
                             help='the cipher option selected', required=True)
         parser.add_argument('-k', '--keys', nargs='*', help='key(s) for the cipher', required=False, default=None)
-        parser.add_argument('--decrypt', help='enables decryption mode', action='store_true',
-                            required=False, default=False)
 
         # Parse the arguments.
         self.args = parser.parse_args()

@@ -30,45 +30,38 @@ if __name__ == "__main__":
     encoder = ncdr.Encoder(parser.args.input, parser.args.output, parser.args.cipher, parser.args.keys)
 
     # Encrypt
-    if not parser.args.decrypt:
-        match encoder.cipher:
-            case 'adfgx':
-                encoder.adfgx()
-            case 'adfgvx':
-                encoder.adfgvx()
-            case 'affine':
-                encoder.affine()
-            case 'autokey':
-                encoder.autokey()
-            case 'atbash':
-                encoder.atbash()
-            case 'beaufort':
-                encoder.beaufort()
-            case 'bifid':
-                encoder.bifid()
-            case 'caesar':
-                encoder.caesar()
-            case 'col-trans':
-                encoder.columnar_transposition()
-            case 'gronsfeld':
-                encoder.gronsfeld()
-            case 'playfair':
-                encoder.playfair()
-            case 'polybius':
-                encoder.polybius_square()
-            case 'porta':
-                encoder.porta()
-            case 'rail-fence':
-                encoder.rail_fence()
-            case 'rot13':
-                encoder.rot13()
-            case 'simple-sub':
-                encoder.simple_substitution()
-            case 'vigenere':
-                encoder.vigenere()
-
-    # Decrypt
-    else:
-        print("Yikes! Decryption is not yet supported. Feel free to contribute to this feature by forking the"
-              " repository at https://github.com/nxrada/pycipher-cli/.")
-
+    match encoder.cipher:
+        case 'adfgx':
+            encoder.adfgx()
+        case 'adfgvx':
+            encoder.adfgvx()
+        case 'affine':
+            encoder.affine()
+        case 'autokey':
+            encoder.autokey()
+        case 'atbash':
+            encoder.atbash()
+        case 'beaufort':
+            encoder.beaufort()
+        case 'bifid':
+            encoder.bifid()
+        case 'caesar':
+            encoder.caesar()
+        case 'col-trans':
+            encoder.columnar_transposition()
+        case 'gronsfeld':
+            encoder.gronsfeld()
+        case 'playfair':
+            encoder.playfair()
+        case 'polybius':
+            encoder.polybius_square()
+        case 'porta':
+            encoder.porta()
+        case 'rail-fence':
+            encoder.rail_fence()
+        case 'rot13':
+            encoder.rot13()
+        case 'simple-sub':
+            encoder.simple_substitution()
+        case 'vigenere':
+            encoder.vigenere()
