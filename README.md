@@ -6,7 +6,7 @@ PyCipher-CLI is a command-line encryption tool for plain-text (.txt) files.
 This project extends [Pycipher](https://github.com/jameslyons/pycipher), a Python library for encryption algorithms, by 
 providing a command-line interface for the library's encryption algorithms. 
 
-Source on [GitHub](https://github.com/nxrada/pycipher-cli).
+Source on [GitHub](https://github.com/nxrada/pycipher-cli). Live [demo](https://youtu.be/bypwLx8i0_o).
 
 ## Usage:
 To call this script, first make sure Python 3.10.x is installed on your machine and that your system's PATH variable is 
